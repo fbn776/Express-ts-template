@@ -14,6 +14,17 @@ function formatDate(unixTime: number) {
 }
 
 
+function centerText(str: string, length: number): string {
+    let padLen = length - str.length;
+    if (padLen < 0)
+        return str;
+
+
+    return " ".repeat(Math.floor(padLen / 2)) + str + " ".repeat(Math.ceil(padLen / 2));
+}
+
+console.log(centerText("success", 20))
+
 /**
  * Used for basic logging to stdout (console)
  */
@@ -22,22 +33,22 @@ export default class Logger {
         let typeMsg: string;
         switch (type) {
             case "error":
-                typeMsg = chalk.red(type);
+                typeMsg = chalk.bgBlack.red(type);
                 break;
             case "warn":
-                typeMsg = chalk.yellow(type);
+                typeMsg = chalk.bgBlack.yellow(type);
                 break;
             case "info":
-                typeMsg = chalk.blue(type);
+                typeMsg = chalk.bgBlack.blue(type);
                 break;
             case "success":
-                typeMsg = chalk.green(type);
+                typeMsg = chalk.bgBlack.green(type);
                 break;
             default:
                 typeMsg = type;
         }
 
-        return `${chalk.bold.bgBlue.white(formatDate(Date.now()))} | ${chalk.bold(typeMsg)} |`
+        return `${chalk.bold.bgBlue.white(formatDate(Date.now()))} | ${chalk.bold(centerText(typeMsg, 18))} |`;
     }
 
     /**
